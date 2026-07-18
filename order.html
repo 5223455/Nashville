@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Order Online — THE NASHVILLE | Bold American Burgers</title>
+  <meta
+    name="description" "Order Birmingham's finest 100% Halal American Smash Burgers, Nashville Hot Wings & Loaded Fries online for fast delivery or collection." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Playfair+Display:ital,wght@0,700;0,800;1,700&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="order.css" />
+</head>
+
+<body class="order-page">
+
+  <!-- ══════ CONSTANT WHITE NAVBAR ══════ -->
+  <nav class="navbar constant-white" id="navbar">
+    <div class="nav-left">
+      <a href="index.html" class="nav-logo"><img src="images/official_fudge_shake.png" alt="The Nashville" class="nav-logo-img" style="height: clamp(40px, 6vw, 60px); border-radius: 50%; display: block;" /></a>
+      <span class="nav-tagline">ONLINE ORDERING</span>
+    </div>
+    <div class="nav-center">
+      <div class="order-type-switch" id="orderTypeSwitch">
+        <button class="ots-btn active" data-type="collection">
+          <span>🛍️ Collection</span>
+          <small>15-20 mins • Free</small>
+        </button>
+        <button class="ots-btn" data-type="delivery">
+          <span>🛵 Delivery</span>
+          <small>Birmingham B6 4NG</small>
+        </button>
+      </div>
+    </div>
+    <div class="nav-right">
+      <a href="index.html" class="nav-link-btn">← Back to Home</a>
+      <button class="cart-nav-btn" id="openCartBtn" aria-label="View Shopping Cart">
+        <span class="cart-icon">🛒</span>
+        <span class="cart-label">Cart</span>
+        <span class="cart-badge" id="cartCount">0</span>
+        <span class="cart-total" id="cartTotalNav">£0.00</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ══════ ORDER HERO HEADER ══════ -->
+  <header class="order-hero">
+    <div class="order-hero-bg"></div>
+    <div class="container order-hero-content">
+      <div class="oh-badge">⚡ 100% HALAL & SMASHED FRESH TO ORDER</div>
+      <h1 class="oh-title">ORDER <span>ONLINE</span></h1>
+      <p class="oh-sub">Explore our bold American smash burgers, secret glaze hot wings, and loaded fries. Handcrafted
+        in Birmingham.</p>
+
+      <!-- Search & Filters -->
+      <div class="order-controls">
+        <div class="search-box">
+          <span class="search-icon">🔍</span>
+          <input type="text" id="menuSearch" placeholder="Search burgers, hot wings, loaded fries, drinks..."
+            autocomplete="off" />
+          <button class="clear-search hidden" id="clearSearchBtn" aria-label="Clear search">✕</button>
+        </div>
+      </div>
+
+      <!-- Category Filter Pills -->
+      <div class="category-pills" id="categoryPills">
+        <button class="cat-pill active" data-category="all">🍽️ All Menu</button>
+        <button class="cat-pill" data-category="burgers">🍔 Smash Burgers</button>
+        <button class="cat-pill" data-category="sides">🍟 Loaded Fries & Sides</button>
+        <button class="cat-pill" data-category="wings">🍗 Hot Wings</button>
+        <button class="cat-pill" data-category="combos">🔥 Combos & Deals</button>
+        <button class="cat-pill" data-category="drinks">🥤 Drinks & Shakes</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ══════ MENU GRID SECTION ══════ -->
+  <main class="order-main container">
+    <div class="menu-status-bar">
+      <h2 class="active-category-title" id="categoryTitle">All Menu Items</h2>
+      <span class="items-count" id="itemsCountShowing">Showing 13 items</span>
+    </div>
+
+    <!-- Grid Container where cards are dynamically rendered -->
+    <div class="menu-grid" id="menuGrid"></div>
+
+    <!-- Empty state for search -->
+    <div class="no-results hidden" id="noResults">
+      <div class="nr-icon">🍔</div>
+      <h3>No delicious matches found</h3>
+      <p>We couldn't find any menu items matching your search. Try searching for "Smash", "Wings", or "Fries".</p>
+      <button class="reset-btn" id="resetSearchBtn">Show All Menu</button>
+    </div>
+  </main>
+
+  <!-- ══════ SLIDE-OUT CART DRAWER ══════ -->
+  <div class="cart-overlay" id="cartOverlay"></div>
+  <aside class="cart-drawer" id="cartDrawer" aria-label="Shopping Cart Drawer">
+    <div class="cd-header">
+      <div class="cd-title">
+        <span>🛒 Your Order</span>
+        <span class="cd-badge" id="cdItemCount">0 items</span>
+      </div>
+      <button class="cd-close-btn" id="closeCartBtn" aria-label="Close Cart">✕</button>
+    </div>
+
+    <!-- Order Type Notice in Cart -->
+    <div class="cd-order-notice" id="cdOrderNotice">
+      <span class="cd-notice-icon">🛍️</span>
+      <div class="cd-notice-text">
+        <strong>Collection Order</strong>
+        <small>Pickup at Griller Kitchens, 11E-11F, B6 4NG (15-20 mins)</small>
+      </div>
+    </div>
+
+    <!-- Cart Items List -->
+    <div class="cd-body" id="cdItemsList">
+      <!-- Empty Cart State -->
+      <div class="cart-empty" id="cartEmptyState">
+        <div class="ce-icon">🛍️</div>
+        <h3>Your bag is hungry!</h3>
+        <p>You haven't added any juicy American smash burgers or crispy loaded fries yet.</p>
+        <button class="ce-browse-btn" id="startOrderingBtn">Browse Menu</button>
+      </div>
+    </div>
+
+    <!-- Promo Code Section -->
+    <div class="cd-promo" id="cdPromoBox">
+      <div class="promo-input-group">
+        <input type="text" id="promoCodeInput" placeholder="Promo code (e.g. NASHVILLE10)" />
+        <button class="promo-apply-btn" id="applyPromoBtn">Apply</button>
+      </div>
+      <div class="promo-message hidden" id="promoMessage"></div>
+    </div>
+
+    <!-- Cart Summary Footer -->
+    <div class="cd-footer">
+      <div class="summary-line">
+        <span>Subtotal</span>
+        <span id="summarySubtotal">£0.00</span>
+      </div>
+      <div class="summary-line" id="deliveryFeeLine">
+        <span>Collection / Delivery</span>
+        <span id="summaryDelivery">FREE</span>
+      </div>
+      <div class="summary-line discount-line hidden" id="discountLine">
+        <span>Discount (10% OFF)</span>
+        <span id="summaryDiscount">-£0.00</span>
+      </div>
+      <div class="summary-line total-line">
+        <span>Total to Pay</span>
+        <span id="summaryTotal">£0.00</span>
+      </div>
+
+      <button class="checkout-btn" id="checkoutBtn" disabled>
+        <span>Proceed to Checkout</span>
+        <span class="checkout-arrow">→</span>
+      </button>
+    </div>
+  </aside>
+
+  <!-- ══════ CHECKOUT & ORDER SUCCESS MODAL ══════ -->
+  <div class="modal-overlay" id="checkoutModalOverlay">
+    <div class="checkout-modal" id="checkoutModal">
+      <!-- Step 1: Customer Details -->
+      <div class="cm-step" id="stepCustomerDetails">
+        <div class="cm-header">
+          <h3>Complete Your Order</h3>
+          <button class="cm-close" id="closeModalBtn">✕</button>
+        </div>
+        <form id="checkoutForm" class="cm-form" onsubmit="return false;">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="custName">Full Name *</label>
+              <input type="text" id="custName" placeholder="e.g. Saketh " required />
+            </div>
+            <div class="form-group">
+              <label for="custPhone">Phone Number *</label>
+              <input type="tel" id="custPhone" placeholder="07123 456789" required />
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="custEmail">Email Address *</label>
+            <input type="email" id="custEmail" placeholder="saketh@example.com" required />
+          </div>
+          <div class="form-group hidden" id="deliveryAddressGroup">
+            <label for="custAddress">Delivery Address (within 3 miles of B6 4NG) *</label>
+            <textarea id="custAddress" rows="2" placeholder="Street name, house number, postcode..."></textarea>
+          </div>
+          <div class="form-group">
+            <label for="orderNotes">Kitchen Notes (Optional)</label>
+            <input type="text" id="orderNotes" placeholder="e.g. Extra smash glaze, no pickles, extra napkins..." />
+          </div>
+
+          <div class="payment-method-select">
+            <label>Select Payment Method</label>
+            <div class="payment-options">
+              <label class="pay-option active">
+                <input type="radio" name="payMethod" value="card" checked />
+                <span>💳 Card / Apple Pay online</span>
+              </label>
+              <label class="pay-option">
+                <input type="radio" name="payMethod" value="cash" />
+                <span>💵 Pay on Collection/Delivery</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="cm-actions">
+            <button type="submit" class="place-order-btn" id="placeOrderSubmitBtn">
+              <span>Place Order • <strong id="modalPayTotal">£0.00</strong></span>
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Step 2: Order Placed Live Tracker -->
+      <div class="cm-step hidden" id="stepOrderSuccess">
+        <div class="success-header">
+          <div class="success-icon-anim">🎉</div>
+          <h2>Order Confirmed!</h2>
+          <p class="order-id-label">Order #<strong id="liveOrderId">NSH-8492</strong></p>
+        </div>
+
+        <div class="tracker-box">
+          <div class="tracker-status-text" id="trackerStatusTitle">✅ Order Received by Kitchen</div>
+          <p class="tracker-sub" id="trackerStatusSub">We are preparing your fresh halal patties right now.</p>
+
+          <div class="progress-bar-wrap">
+            <div class="progress-bar-fill" id="trackerProgressBar"></div>
+          </div>
+
+          <div class="tracker-steps">
+            <div class="t-step active" id="ts1">
+              <span class="ts-icon">📝</span>
+              <span class="ts-lbl">Received</span>
+            </div>
+            <div class="t-step" id="ts2">
+              <span class="ts-icon">🍳</span>
+              <span class="ts-lbl">Smashing</span>
+            </div>
+            <div class="t-step" id="ts3">
+              <span class="ts-icon">🔥</span>
+              <span class="ts-lbl">Glazing</span>
+            </div>
+            <div class="t-step" id="ts4">
+              <span class="ts-icon">📦</span>
+              <span class="ts-lbl" id="tsFinalLabel">Ready</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="order-receipt-summary" id="receiptSummaryBox">
+          <!-- Populated by JS -->
+        </div>
+
+        <div class="success-actions">
+          <button class="continue-btn" id="backToMenuSuccessBtn">Order More / Back to Menu</button>
+          <a href="index.html" class="home-return-link">Return to Homepage →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mobile Floating Cart Bar -->
+  <div class="mobile-cart-bar hidden" id="mobileCartBar">
+    <div class="mcb-info">
+      <span class="mcb-count" id="mcbCount">0 items</span>
+      <span class="mcb-total" id="mcbTotal">£0.00</span>
+    </div>
+    <button class="mcb-btn" id="mcbOpenBtn">View Order 🛒</button>
+  </div>
+
+  <!-- Toast Notification -->
+  <div class="toast-popup hidden" id="toastPopup">
+    <span class="toast-icon" id="toastIcon">🍔</span>
+    <span class="toast-text" id="toastText">Added to cart!</span>
+  </div>
+
+  <!-- ══════ FOOTER ══════ -->
+  <footer class="order-footer">
+    <div class="container order-footer-inner">
+      <div class="of-brand">
+        <span class="of-logo">THE NASHVILLE</span>
+        <p>100% Halal American Smash Burgers • Birmingham B6 4NG</p>
+      </div>
+      <div class="of-links">
+        <a href="index.html">Home</a>
+        <a href="index.html#about">About</a>
+        <a href="index.html#locations">Locations</a>
+        <a href="index.html#experience">Experience</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="order.js"></script>
+</body>
+
+</html>
