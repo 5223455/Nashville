@@ -2,6 +2,12 @@
    THE NASHVILLE — Main Script
    ═══════════════════════════════════════════ */
 
+// Force scroll to top on reload (disables Chrome's automatic scroll restoration)
+if ('scrollRestoration' in history) {
+  history.scrollRestoration = 'manual';
+}
+window.scrollTo(0, 0);
+
 // ─── LOADING SCREEN ───
 (function initLoader() {
   const loader = document.getElementById('loader');

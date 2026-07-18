@@ -60,6 +60,13 @@ body {
   line-height: 1.5;
 }
 
+/* Force 75% zoom on desktop screens for demo purposes */
+@media (min-width: 821px) {
+  body {
+    zoom: 0.75;
+  }
+}
+
 img {
   display: block;
   max-width: 100%;
